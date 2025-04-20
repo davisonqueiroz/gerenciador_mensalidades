@@ -1,0 +1,29 @@
+<h1> Students </h1>
+<style>
+table,td,th{
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+</style>
+<% @students.each do |student| %>
+    <table width = "100%">
+        <tr>
+            <th>Name</th>
+            <th>CPF</th>
+            <th>Cellphone</th>
+            <th>Payment</th>
+            <th colspan = "2">Options </th>
+        </tr>
+        <tr>
+            <td><%=link_to student.name,student %></td>
+            <td><%= student.cpf %></td>
+            <td><%= student.cellphone %></td>
+            <td><%= student.payment_method %></td>
+            <td><%= link_to "Edit",edit_student_path(student) %></td>
+            <td><%= link_to "Delete","students/#{student.id}", data: {"turbo-method": :delete,'turbo-confirm': :"Are you sure you want to delete?"} %></td>
+        </tr>
+    </table>
+<%end%>
+<%=link_to "New student", new_student_path%>
