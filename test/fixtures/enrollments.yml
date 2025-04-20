@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  total_value: 9.99
+  invoice_quantity: 1
+  due_day: 1
+  course_name: MyString
+  university: one
+  student: one
+
+two:
+  total_value: 9.99
+  invoice_quantity: 1
+  due_day: 1
+  course_name: MyString
+  university: two
+  student: two
