@@ -1,1 +1,31 @@
-<h1> Ola mundo </h1>
+<h1> Universities </h1>
+<%=link_to "New university", new_university_path%>
+<%=link_to "Back to Enrollments", enrollments_path%>
+<br><br>
+<% if University.any?%>
+    <style>
+    table,td,th{
+        border: 1px solid black;
+        border-collapse: collapse;
+        text-align: center;
+    }
+
+    </style>
+    <table width = "100%">
+        <tr>
+            <th>Name</th>
+            <th>CNPJ</th>
+            <th>Category</th>
+            <th colspan = "2">Options </th>
+        </tr>
+    <% @universities.each do |university| %>
+        <tr>
+            <td><%=link_to university.name,university %></td>
+            <td><%= university.cnpj %></td>
+            <td><%= university.university_type %></td>
+            <td><%= link_to "Edit",edit_university_path(university) %></td>
+            <td><%= link_to "Delete","universities/#{university.id}", data: {"turbo-method": :delete,'turbo-confirm': :"Are you sure you want to delete?"} %></td>
+        </tr>
+    <%end%>
+    </table>
+<%end%>

@@ -1,0 +1,7 @@
+<%= @university.name %>
+<%= @university.cnpj %>
+<%= @university.university_type %>
+<%= @university.created_at %>
+<%= @university.updated_at %>
+<%= link_to "Back to universities",universities_path %>
+<%= link_to "Delete","universities/#{@university.id}", data: {"turbo-method": :delete,'turbo-confirm': :"Are you sure you want to delete?"} %>

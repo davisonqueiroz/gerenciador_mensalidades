@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_20_011942) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_21_020133) do
   create_table "enrollments", force: :cascade do |t|
     t.decimal "total_value"
     t.integer "invoice_quantity"
@@ -48,7 +48,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_20_011942) do
   create_table "universities", force: :cascade do |t|
     t.string "name"
     t.string "cnpj"
-    t.string "type"
+    t.string "university_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

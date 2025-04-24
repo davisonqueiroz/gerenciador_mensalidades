@@ -1,1 +1,30 @@
-<h1> Ola mundo </h1>
+<h1> Invoices </h1>
+<%=link_to "New invoice", new_invoice_path%>
+<%=link_to "Back to Enrollments", enrollments_path%>
+<br><br>
+<% if Invoice.any?%>
+    <style>
+    table,td,th{
+        border: 1px solid black;
+        border-collapse: collapse;
+        text-align: center;
+    }
+
+    </style>
+    <table width = "100%">
+        <tr>
+            <th>Student</th>
+            <th>Value</th>
+            <th>Due Date</th>
+            <th>Status</th>
+        </tr>
+    <% @invoices.each do |invoice| %>
+        <tr>
+            <td><%= invoice.enrollment.student.name %></td>
+            <td><%= invoice.invoice_value %></td>
+            <td><%= invoice.due_date %></td>
+            <td><%= invoice.status %></td>
+        </tr>
+    <%end%>
+    </table>        
+<%end%>

@@ -1,13 +1,16 @@
 <h1> Students </h1>
-<style>
-table,td,th{
-    border: 1px solid black;
-    border-collapse: collapse;
-    text-align: center;
-}
+<%=link_to "New student", new_student_path%>
+<%=link_to "Back to Enrollments", enrollments_path%>
+<br><br>
+<% if Student.any?%>
+    <style>
+    table,td,th{
+        border: 1px solid black;
+        border-collapse: collapse;
+        text-align: center;
+    }
 
-</style>
-<% @students.each do |student| %>
+    </style>
     <table width = "100%">
         <tr>
             <th>Name</th>
@@ -16,6 +19,7 @@ table,td,th{
             <th>Payment</th>
             <th colspan = "2">Options </th>
         </tr>
+    <% @students.each do |student| %>
         <tr>
             <td><%=link_to student.name,student %></td>
             <td><%= student.cpf %></td>
@@ -24,6 +28,6 @@ table,td,th{
             <td><%= link_to "Edit",edit_student_path(student) %></td>
             <td><%= link_to "Delete","students/#{student.id}", data: {"turbo-method": :delete,'turbo-confirm': :"Are you sure you want to delete?"} %></td>
         </tr>
+    <%end%>
     </table>
 <%end%>
-<%=link_to "New student", new_student_path%>

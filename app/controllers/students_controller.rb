@@ -1,7 +1,12 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: [ :show, :edit, :update, :destroy ]
+  before_action :set_render, only: [ :show, :edit, :update ]
   def index
     @students = Student.all
+    respond_to do |format|
+      format.html
+      format.json { render json: @students }
+    end
   end
   def show
   end
@@ -47,5 +52,9 @@ class StudentsController < ApplicationController
 
   def set_student
     @student = Student.find(params[:id])
+  end
+
+  def set_render
+    render json: @student if request.format.json?
   end
 end

@@ -1,0 +1,9 @@
+<%= form_with model: @university do |form|%>
+    <%= form.label :name%>
+    <%= form.text_field :name%>
+    <%= form.label :cnpj%>
+    <%= form.text_field :cnpj%>
+    <%= form.label :university_type%>
+    <%= form.select :university_type, University.university_types.keys%>
+    <%= form.submit "Save" %>
+<% end %>

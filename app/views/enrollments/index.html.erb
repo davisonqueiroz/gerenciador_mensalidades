@@ -1,1 +1,38 @@
-<h1> Ola mundo </h1>
+<h1> Enrollments </h1>
+<%=link_to "New enrollment", new_enrollment_path%>
+<%=link_to "Students", students_path%>
+<%=link_to "Universities", universities_path%>
+<%=link_to "Invoices", invoices_path%>
+<br><br>
+<% if Enrollment.any?%>
+    <style>
+        table,td,th{
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+        }
+    </style>
+    <table width = "100%">
+        <tr>
+            <th>Enrollment</th>
+            <th>Student</th>
+            <th>University</th>
+            <th>Course</th>
+            <th>Total Value</th>
+            <th>Invoices</th>
+            <th colspan = "2">Options </th>
+        </tr>
+    <% @enrollments.each do |enrollment| %>
+        <tr>
+            <td><%= link_to enrollment.id, enrollment %></td> 
+            <td><%= enrollment.student.name %></td> 
+            <td><%= enrollment.university.name %></td>
+            <td><%= enrollment.course_name %></td>
+            <td><%= enrollment.total_value %></td>
+            <td><%= link_to enrollment.invoice_quantity, invoices_path(@invoice)%></td>
+            <td><%= link_to "Edit",edit_enrollment_path(enrollment) %></td>
+            <td><%= link_to "Delete","enrollments/#{enrollment.id}", data: {"turbo-method": :delete,'turbo-confirm': :"Are you sure you want to delete?"} %></td>
+        </tr>
+    <%end%>
+    </table>
+<%end%>

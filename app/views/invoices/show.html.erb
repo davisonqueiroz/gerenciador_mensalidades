@@ -1,0 +1,9 @@
+<%= @invoice.invoice_value %>
+<%= @invoice.due_date %>
+<%= @invoice.enrollment.id %>
+<%= @invoice.status %>
+<%= @invoice.created_at %>
+<%= @invoice.updated_at %>
+<%= link_to "Back to invoices",invoices_path %>
+<%= link_to "Delete","invoices/#{@invoice.id}", data: {"turbo-method": :delete,'turbo-confirm': :"Are you sure you want to delete?"} %>
+

@@ -1,0 +1,10 @@
+<%= @enrollment.total_value %>
+<%= @enrollment.invoice_quantity %>
+<%= @enrollment.due_day %>
+<%= @enrollment.course_name %>
+<%= @enrollment.university.name %>
+<%= @enrollment.student.name %>
+<%= @enrollment.created_at %>
+<%= @enrollment.updated_at %>
+<%= link_to "Back to enrollments",enrollments_path %>
+<%= link_to "Delete","enrollments/#{@enrollment.id}", data: {"turbo-method": :delete,'turbo-confirm': :"Are you sure you want to delete?"} %>

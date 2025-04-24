@@ -1,0 +1,15 @@
+<%= form_with model: @enrollment do |form|%>
+    <%= form.label :total_value%>
+    <%= form.number_field :total_value,step: :any%>
+    <%= form.label :invoice_quantity%>
+    <%= form.number_field :invoice_quantity%>
+    <%= form.label :due_day%>
+    <%= form.number_field :due_day%>
+    <%= form.label :course_name%>
+    <%= form.text_field :course_name%>
+    <%= form.label :university%>
+    <%= form.collection_select :university_id, University.all,:id,:name, prompt: true%>
+    <%= form.label :student%>
+    <%= form.collection_select :student_id, Student.all,:id,:name, prompt: true%>
+    <%= form.submit "Save" %>
+<% end %>
