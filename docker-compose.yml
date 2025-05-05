@@ -1,0 +1,28 @@
+services:
+  bilinho: 
+    build: 
+      dockerfile: .
+    depends_on:
+      - database
+    environment:
+      - RAILS_MASTER_KEY=e3f7a6c4d18b2a0fbe5c6f982a1d3f74
+
+  database: 
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: bilinho_db
+    ports:
+      - "5432:5432"
+  
+  backup:
+  image: backup-service
+  volumes:
+    - db-data:/var/lib/backup/data
+
+# volumes:
+#   db-data:
+#   driver: local
+
+# # networks:
