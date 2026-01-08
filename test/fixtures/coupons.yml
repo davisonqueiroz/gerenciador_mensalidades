@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  course_name: MyString
+  full_price: 9.99
+  paid_value: 9.99
+  student_data: 
+  status: MyString
+  description: MyText
+  warnings: MyText
+
+two:
+  course_name: MyString
+  full_price: 9.99
+  paid_value: 9.99
+  student_data: 
+  status: MyString
+  description: MyText
+  warnings: MyText
