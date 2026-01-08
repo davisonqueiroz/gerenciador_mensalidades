@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cpf: MyString
+  status: MyString
+  payment_method: MyString
+  price: 9.99
+  paid_cycles: 1
+
+two:
+  cpf: MyString
+  status: MyString
+  payment_method: MyString
+  price: 9.99
+  paid_cycles: 1
