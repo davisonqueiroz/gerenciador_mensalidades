@@ -3,7 +3,7 @@ class Offer < ApplicationRecord
   validates :full_price, numericality: { greater_than: 0 }
   validates :discount_value, numericality: { greater_than_or_equal_to: 0 },optional: true
   validates :discount_percentage, optional: true
-  enum :status, active: "active", inactive: "inactive", default: "active"
+  enum status: { active: 0, inactive: 2 }
   validates :max_payments, numericality: { only_integer: true, greater_than: 0 }
   belongs_to :institution
   has_many :order
