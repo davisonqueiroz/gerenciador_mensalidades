@@ -10,9 +10,49 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_01_06_003519) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_11_011930) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "addresses", force: :cascade do |t|
+    t.string "address"
+    t.string "adress_adjunct"
+    t.integer "address_number"
+    t.string "city"
+    t.string "state"
+    t.string "zipcode"
+    t.string "neighborhood"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "coupons", force: :cascade do |t|
+    t.string "course_name"
+    t.decimal "full_price"
+    t.decimal "paid_value"
+    t.jsonb "student_data"
+    t.string "status"
+    t.text "description"
+    t.text "warnings"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "orders_id"
+    t.bigint "subscriptions_id"
+    t.jsonb "address_offer", default: {}
+    t.index ["orders_id"], name: "index_coupons_on_orders_id"
+    t.index ["subscriptions_id"], name: "index_coupons_on_subscriptions_id"
+  end
+
+  create_table "cycles", force: :cascade do |t|
+    t.integer "index"
+    t.integer "status", default: 0
+    t.decimal "value"
+    t.datetime "due_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "subscriptions_id"
+    t.index ["subscriptions_id"], name: "index_cycles_on_subscriptions_id"
+  end
 
   create_table "enrollments", force: :cascade do |t|
     t.decimal "total_value", null: false
@@ -27,6 +67,17 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_06_003519) do
     t.index ["university_id"], name: "index_enrollments_on_university_id"
   end
 
+  create_table "institutions", force: :cascade do |t|
+    t.string "name"
+    t.string "cnpj"
+    t.integer "institution_type", default: 0
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "addresses_id"
+    t.index ["addresses_id"], name: "index_institutions_on_addresses_id"
+  end
+
   create_table "invoices", force: :cascade do |t|
     t.decimal "invoice_value", null: false
     t.date "due_date", null: false
@@ -35,6 +86,45 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_06_003519) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["enrollment_id"], name: "index_invoices_on_enrollment_id"
+  end
+
+  create_table "offers", force: :cascade do |t|
+    t.string "course_name"
+    t.decimal "full_price"
+    t.decimal "discount_value"
+    t.float "discount_percentage"
+    t.boolean "limited"
+    t.integer "total_seats"
+    t.integer "paid_seats"
+    t.integer "reserved_seats"
+    t.integer "status", default: 0
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.integer "max_payments"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string "first_name"
+    t.string "second_name"
+    t.string "student_cpf"
+    t.datetime "paid_at"
+    t.decimal "full_price"
+    t.decimal "price"
+    t.decimal "paid_value"
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.decimal "value"
+    t.integer "status", default: 0
+    t.integer "payment_method", default: 0
+    t.jsonb "metadata"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "students", force: :cascade do |t|
@@ -46,7 +136,33 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_06_003519) do
     t.string "payment_method", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "addresses_id"
+    t.index ["addresses_id"], name: "index_students_on_addresses_id"
     t.index ["cpf"], name: "index_students_on_cpf", unique: true
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.string "cpf"
+    t.integer "status", default: 0
+    t.integer "payment_method", default: 0
+    t.decimal "price"
+    t.integer "paid_cycles"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "coupons_id"
+    t.index ["coupons_id"], name: "index_subscriptions_on_coupons_id"
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.integer "cycle_index"
+    t.integer "status", default: 0
+    t.integer "payment_method", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "cycles_id"
+    t.bigint "payments_id"
+    t.index ["cycles_id"], name: "index_transactions_on_cycles_id"
+    t.index ["payments_id"], name: "index_transactions_on_payments_id"
   end
 
   create_table "universities", force: :cascade do |t|
@@ -58,7 +174,15 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_06_003519) do
     t.index ["name", "cnpj"], name: "index_universities_on_name_and_cnpj", unique: true
   end
 
+  add_foreign_key "coupons", "orders", column: "orders_id"
+  add_foreign_key "coupons", "subscriptions", column: "subscriptions_id"
+  add_foreign_key "cycles", "subscriptions", column: "subscriptions_id"
   add_foreign_key "enrollments", "students"
   add_foreign_key "enrollments", "universities"
+  add_foreign_key "institutions", "addresses", column: "addresses_id"
   add_foreign_key "invoices", "enrollments"
+  add_foreign_key "students", "addresses", column: "addresses_id"
+  add_foreign_key "subscriptions", "coupons", column: "coupons_id"
+  add_foreign_key "transactions", "cycles", column: "cycles_id"
+  add_foreign_key "transactions", "payments", column: "payments_id"
 end

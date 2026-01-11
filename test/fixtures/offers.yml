@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  course_name: MyString
+  full_price: 9.99
+  discount_value: 9.99
+  discount_percentage: 1.5
+  limited: false
+  total_seats: 1
+  paid_seats: 1
+  reserved_seats: 1
+  status: MyString
+  start_date: 2026-01-07 20:05:07
+  end_date: 2026-01-07 20:05:07
+  max_payments: 1
+
+two:
+  course_name: MyString
+  full_price: 9.99
+  discount_value: 9.99
+  discount_percentage: 1.5
+  limited: false
+  total_seats: 1
+  paid_seats: 1
+  reserved_seats: 1
+  status: MyString
+  start_date: 2026-01-07 20:05:07
+  end_date: 2026-01-07 20:05:07
+  max_payments: 1
