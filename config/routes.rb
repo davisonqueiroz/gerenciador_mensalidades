@@ -1,15 +1,37 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
-  resources :universities, :students, :invoices, :enrollments
   root "enrollments#index"
 
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
+  namespace :api do
+    namespace :v1 do
+        resources :universities, :students, :invoices, :enrollments
+    end
+    namespace :v2 do
+      resources :institutions
 
-  # Defines the root path route ("/")
+      resources :orders, only: [:show] do
+        resource :coupon, only: [:create, :new, :show, :edit, :update]
+        resource :payment, only: [:create, :new, :show, :edit, :update]
+        resource :offer, only: [:show]
+      end
+      resources :offers do 
+        resources :orders, only: [:create,:new, :show, :edit, :update]
+        resource :institution, only: [:show]
+      end
+      resources :subscriptions do
+        resources :cycles, shallow: true
+        resources :transactions, only: [:new, :create, :show, :update, :edit]
+        resource :coupon, only: [:show]
+      end
+      resources :cycles , only: [:show] do
+        resources :transactions, only: [:index, :show, :new, :create, :edit, :update]
+      end
+      resources :transactions do
+        resource :payment, only: [:show, :edit, :update]
+      end
+      resources :institutions do
+        resource :address, only: [:show, :edit, :update]
+      end
+    end
+  end
 end
