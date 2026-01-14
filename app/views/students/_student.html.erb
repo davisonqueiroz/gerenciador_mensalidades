@@ -8,8 +8,8 @@
     <%= form.label :Cellphone%>
     <%= form.telephone_field :cellphone%>
     <%= form.label :Gender%>
-    <%= form.select :gender, Api::V1::Student.genders.keys%>
+    <%= form.select :gender, Student.genders.keys%>
     <%= form.label :Payment%>
-    <%= form.select :payment_method, Api::V1::Student.payment_methods.keys%>
+    <%= form.select :payment_method, Student.payment_methods.keys%>
     <%= form.submit "Save" %>
 <% end %>

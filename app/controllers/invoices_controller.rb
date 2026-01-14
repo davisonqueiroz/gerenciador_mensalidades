@@ -2,7 +2,7 @@ class InvoicesController < ApplicationController
   before_action :set_invoice, only: [ :show, :edit, :update, :destroy ]
   before_action :set_render, only: [ :show, :edit, :update ]
   def index
-    @invoices = Api::V1::Invoice.all
+    @invoices = Invoice.all
     respond_to do |format|
       format.html
       format.json { render json: @invoices }
@@ -12,11 +12,11 @@ class InvoicesController < ApplicationController
   end
 
   def new
-    @invoice = Api::V1::Invoice.new
+    @invoice = Invoice.new
   end
 
   def create
-    @invoice = Api::V1::Invoice.new(invoice_params)
+    @invoice = Invoice.new(invoice_params)
     if @invoice.save
       redirect_to invoices_url
     else
@@ -51,7 +51,7 @@ class InvoicesController < ApplicationController
   end
 
   def set_invoice
-    @invoice = Api::V1::Invoice.find(params[:id])
+    @invoice = Invoice.find(params[:id])
   end
 
   def set_render

@@ -2,7 +2,7 @@
 <%=link_to "New invoice", new_api_v1_invoice_path%>
 <%=link_to "Back to Enrollments", api_v1_enrollments_path%>
 <br><br>
-<% if Api::V1::Invoice.any?%>
+<% if Invoice.any?%>
     <style>
     table,td,th{
         border: 1px solid black;

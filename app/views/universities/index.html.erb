@@ -2,7 +2,7 @@
 <%=link_to "New university", new_api_v1_university_path%>
 <%=link_to "Back to Enrollments", api_v1_enrollments_path%>
 <br><br>
-<% if Api::V1::University.any?%>
+<% if University.any?%>
     <style>
     table,td,th{
         border: 1px solid black;

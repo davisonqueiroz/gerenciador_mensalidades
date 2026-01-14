@@ -2,7 +2,7 @@ class EnrollmentsController < ApplicationController
   before_action :set_enrollment, only: [ :show, :edit, :update, :destroy ]
   before_action :set_render, only: [ :show, :edit, :update ]
   def index
-    @enrollments = Api::V1::Enrollment.all
+    @enrollments = Enrollment.all
     respond_to do |format|
       format.html
       format.json { render json: @enrollments }
@@ -12,17 +12,17 @@ class EnrollmentsController < ApplicationController
   end
 
   def new
-    @enrollment = Api::V1::Enrollment.new
+    @enrollment = Enrollment.new
   end
 
   def create
     ActiveRecord::Base.transaction do
-      @enrollment = Api::V1::Enrollment.create!(enrollment_params)
+      @enrollment = Enrollment.create!(enrollment_params)
       due_date = calculate_due_date(@enrollment.due_day)
       invoice_qtd = @enrollment.invoice_quantity
       invoice_value = calculate_value_invoice(@enrollment.total_value, invoice_qtd)
       invoice_qtd.times do
-          Api::V1::Invoice.create!(
+          Invoice.create!(
             invoice_value: invoice_value,
             due_date: due_date,
             enrollment: @enrollment,
@@ -61,7 +61,7 @@ class EnrollmentsController < ApplicationController
   end
 
   def set_enrollment
-    @enrollment = Api::V1::Enrollment.find(params[:id])
+    @enrollment = Enrollment.find(params[:id])
   end
 
   def set_render
