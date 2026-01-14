@@ -4,7 +4,7 @@
 <%=link_to "Universities", api_v1_universities_path%>
 <%=link_to "Invoices", api_v1_invoices_path%>
 <br><br>
-<% if Api::V1::Enrollment.any?%>
+<% if Enrollment.any?%>
     <style>
         table,td,th{
             border: 1px solid black;

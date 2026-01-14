@@ -2,7 +2,7 @@
 <%=link_to "New student", new_api_v1_student_path%>
 <%=link_to "Back to Enrollments", api_v1_enrollments_path%>
 <br><br>
-<% if Api::V1::Student.any?%>
+<% if Student.any?%>
     <style>
     table,td,th{
         border: 1px solid black;

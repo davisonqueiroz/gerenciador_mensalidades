@@ -4,6 +4,6 @@
     <%= form.label :cnpj%>
     <%= form.text_field :cnpj%>
     <%= form.label :university_type%>
-    <%= form.select :university_type, Api::V1::University.university_types.keys%>
+    <%= form.select :university_type, University.university_types.keys%>
     <%= form.submit "Save" %>
 <% end %>
