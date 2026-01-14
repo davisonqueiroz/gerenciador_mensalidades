@@ -1,2 +1,0 @@
-class CyclesController < ApplicationController
-end
