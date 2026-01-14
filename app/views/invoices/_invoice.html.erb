@@ -4,7 +4,7 @@
     <%= form.label :due_date%>
     <%= form.date_field :due_date%>
     <%= form.label :enrollment%>
-    <%= form.collection_select :enrollment_id, Enrollment.all,:id,:id,prompt: true%>
+    <%= form.collection_select :enrollment_id, Api::V1::Enrollment.all,:id,:id,prompt: true%>
     <%= form.label :status%>
     <%= form.select :status,[['Aberta', 'aberta'], ['Atrasada', 'atrasada'], ['Paga', 'paga']],prompt: true%>
     <%= form.submit "Save" %>

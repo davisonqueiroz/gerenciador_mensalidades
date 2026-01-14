@@ -6,5 +6,5 @@
 <%= @student.payment_method %>
 <%= @student.created_at %>
 <%= @student.updated_at %>
-<%= link_to "Back to students",students_path %>
+<%= link_to "Back to students",api_v1_students_path %>
 <%= link_to "Delete","students/#{@student.id}", data: {"turbo-method": :delete,'turbo-confirm': :"Are you sure you want to delete?"} %>
