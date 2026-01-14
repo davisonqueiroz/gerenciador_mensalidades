@@ -1,9 +1,8 @@
 Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
   root "enrollments#index"
-
-  namespace :api do
-    namespace :v1 do
+    scope path: "api", as: "api" do
+    scope path: "v1", as: "v1" do
         resources :universities, :students, :invoices, :enrollments
     end
     namespace :v2 do

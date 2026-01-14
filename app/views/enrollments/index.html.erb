@@ -1,10 +1,10 @@
 <h1> Enrollments </h1>
-<%=link_to "New enrollment", new_enrollment_path%>
-<%=link_to "Students", students_path%>
-<%=link_to "Universities", universities_path%>
-<%=link_to "Invoices", invoices_path%>
+<%=link_to "New enrollment", new_api_v1_enrollment_path%>
+<%=link_to "Students", api_v1_students_path%>
+<%=link_to "Universities", api_v1_universities_path%>
+<%=link_to "Invoices", api_v1_invoices_path%>
 <br><br>
-<% if Enrollment.any?%>
+<% if Api::V1::Enrollment.any?%>
     <style>
         table,td,th{
             border: 1px solid black;

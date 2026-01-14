@@ -2,7 +2,7 @@ class UniversitiesController < ApplicationController
   before_action :set_university, only: [ :show, :edit, :update, :destroy ]
   before_action :set_render, only: [ :show, :edit, :update ]
   def index
-    @universities = University.all
+    @universities = Api::V1::University.all
     respond_to do |format|
       format.html
       format.json { render json: @universities }
@@ -12,11 +12,11 @@ class UniversitiesController < ApplicationController
   end
 
   def new
-    @university = University.new
+    @university = Api::V1::University.new
   end
 
   def create
-    @university = University.new(university_params)
+    @university = Api::V1::University.new(university_params)
     if @university.save
       redirect_to universities_url
     else
@@ -51,7 +51,7 @@ class UniversitiesController < ApplicationController
   end
 
   def set_university
-    @university = University.find(params[:id])
+    @university = Api::V1::University.find(params[:id])
   end
 
   def set_render
